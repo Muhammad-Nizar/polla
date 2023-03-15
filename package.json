@@ -1,0 +1,48 @@
+{
+    "name": "areos-backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js"
+    },
+    "keywords": [
+        "blockchain"
+    ],
+    "author": "Nizar",
+    "license": "ISC",
+    "dependencies": {
+        "@elastic/elasticsearch": "^8.4.0",
+        "@types/text-encoding": "^0.0.36",
+        "axios": "^0.27.2",
+        "big-integer": "^1.6.51",
+        "cors": "^2.8.5",
+        "demux": "^4.0.0",
+        "demux-eos": "^4.0.1",
+        "dotenv": "^16.0.3",
+        "eosjs": "^22.1.0",
+        "express": "^4.17.3",
+        "express-graphql": "^0.12.0",
+        "fetch": "^1.1.0",
+        "form-data": "^4.0.0",
+        "graphql": "^15.8.0",
+        "longjohn": "^0.2.12",
+        "moment": "^2.29.4",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.3.3",
+        "node-fetch": "^2.6.7",
+        "node-libcurl": "^3.0.0",
+        "nodemailer": "^6.9.1",
+        "passport": "^0.5.2",
+        "passport-bearer-strategy": "^1.0.1",
+        "pg": "^8.7.3",
+        "pg-promise": "^10.12.0",
+        "string-hex": "^1.0.0",
+        "vue-confirm-dialog": "^1.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15",
+        "typescript": "^4.6.2"
+    }
+}

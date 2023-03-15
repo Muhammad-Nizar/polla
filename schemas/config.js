@@ -1,0 +1,17 @@
+module.exports.tbls = {
+    sku: "skus.a",
+    sku_2: "skus.a.1",
+    sku_3: "skus.a.2",
+    asset: "assets.a",
+    asset_shop_scope: "assets.a.sc",
+    auction: "auctions.a",
+    balancelock: "bllock.a1",
+    bidder: "bidders.a",
+    category: "categorys.a",
+    info: "info",
+    offer: "offers.a",
+    shop: "shops.a",
+    template: "templates.a",
+    collection: "colls.a",
+    domain: "doms.a",
+}
