@@ -4,11 +4,8 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon app.js",
-        "dev": "npm install",
-        "build": "npm install",
-        "generate": "npm install"
+        "start": "node app.js",
+        "dev": "nodemon app.js"
     },
     "keywords": [
         "blockchain"
