@@ -4,19 +4,15 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon app.js",
-        "dev": "npm install",
-        "build": "npm install",
-        "generate": "npm install"
+        "start": "node app.js",
+        "dev": "node app.js"
     },
     "keywords": [
         "blockchain"
     ],
     "author": "Nizar",
     "license": "ISC",
-    "dependencies": {
-        "@elastic/elasticsearch": "^8.4.0",
+    "dependencies": { 
         "@types/text-encoding": "^0.0.36",
         "axios": "^0.27.2",
         "big-integer": "^1.6.51",
