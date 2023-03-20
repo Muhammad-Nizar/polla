@@ -151,7 +151,8 @@ function sendEmail(to, name, title, version, policy_id, body_id, trx) {
     to: to,
     subject: "Approve Policy - " + title + " v" + version,
     text:
-      "TRX: " +
+      "Hi " + name +
+      "<br>TRX: " +
       trx +
       "<br>policy_id: " +
       policy_id +

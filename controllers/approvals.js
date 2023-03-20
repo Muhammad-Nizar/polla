@@ -56,7 +56,7 @@ exports.test = async function (req, res) {
     .json(apiResponse({ iv: iv.toString("hex"), data: data }, 1));
 };
 
-async function notify(notification_cb, params, extra, policy, body, trx) {
+async function notifyOwner(notification_cb, params, extra, policy, body, trx) {
   if (notification_cb) {
     const q =
       "sys_user_id=" +
@@ -90,6 +90,16 @@ async function notify(notification_cb, params, extra, policy, body, trx) {
   }
 
   if (extra && extra.email) {
+    mysqlPlanetScale.query(
+      "SELECT * FROM  `poldef`  WHERE policy_id = " + polla_id,
+      async function (err, result, fields) {
+        console.log(err, result);
+        if (err) throw err;
+        //insert email + owner id + policy id
+        // later:
+        // CRUD + unsubscribe
+      }
+    );
     sendEmail(
       extra.email,
       extra.name,
@@ -100,6 +110,41 @@ async function notify(notification_cb, params, extra, policy, body, trx) {
       trx
     );
   }
+}
+
+async function notifyOwnerQueueProcess() {
+  const stamp = Math.floor(Date.now() / 1000) - (24 * 3600);
+  mysqlPlanetScale.query(
+    "DELETE FROM `notque` WHERE created_at < ",
+    async function (err, result, fields) {
+      console.log(err, result);
+      if (err) throw err;
+
+      mysqlPlanetScale.query(
+        "SELECT * FROM  `notque`",
+        async function (err, result, fields) {
+          console.log(err, result);
+          if (err) throw err;
+          for (var i = 0; i < result.length; i++) {
+            const { statusCode } = await curly.get(
+              result[i].notification_cb + "?" + q,
+              {
+                NOBODY: true,
+                FOLLOWLOCATION: true,
+                SSL_VERIFYHOST: false,
+                SSL_VERIFYPEER: false,
+              }
+            );
+            if (statusCode == 200) {
+              mysqlPlanetScale.query(
+                "DELETE FROM `notque` WHERE id = " + result[i].id
+              );
+            }
+          }
+        }
+      );
+    }
+  );
 }
 
 exports.postenc = async function (req, res) {
@@ -147,7 +192,7 @@ exports.postenc = async function (req, res) {
             params.body_id
           );
           if (v.msg) {
-            notify(
+            notifyOwner(
               policy_record.notification_cb,
               params,
               extra,
@@ -228,7 +273,7 @@ exports.postpub = async function (req, res) {
           if (statusCode == 200) {
             console.log(statusCode, policy_record.confirm_cb + "?" + qq);
             var v = await transaction("addapprove", args);
-            notify(
+            notifyOwner(
               policy_record.notification_cb,
               {
                 sys_user_id: sys_user_id,
@@ -249,7 +294,7 @@ exports.postpub = async function (req, res) {
           }
         } else {
           var v = await transaction("addapprove", args);
-          notify(
+          notifyOwner(
             policy_record.notification_cb,
             { sys_user_id: sys_user_id, body_id: body_id, polla_id: polla_id },
             extra,
